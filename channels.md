@@ -15,6 +15,21 @@ chan <- // write to channel (output)
 chan    // (input/output)
 ```
 
+## Buffered channels
+
+Passing a second parameter to the make function creates a buffered channel:
+
+```go
+c := make(chan int, 1)
+```
+
+This creates a buffered channel with capacity of 1.
+Channel communication is synchronous normally. Both sides of the channel wait
+the other side to read or write a message.
+
+Buffered channels are asynchronous. Sending or receiving a message is not a
+blocking procedure unless the channel is full.
+
 ## References
 
 - https://golang.org/ref/spec#Channel_types
