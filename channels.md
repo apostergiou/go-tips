@@ -30,6 +30,25 @@ the other side to read or write a message.
 Buffered channels are asynchronous. Sending or receiving a message is not a
 blocking procedure unless the channel is full.
 
+## Examples
+
+#### tags: receive-only channel, blocking channel
+
+```go
+func Publish(txt string, d time.Duration) (wait <-chan struct{}) {
+	ch := make(chan struct{})
+	go func() {
+		time.Sleep(d)
+		fmt.Println(txt)
+		close(ch)
+	}()
+	return ch
+}
+
+wait := Publish("Hello world!", 10 * time.Second)
+<-wait
+```
+
 ## References
 
 - https://golang.org/ref/spec#Channel_types
